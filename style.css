@@ -1,0 +1,42 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  background-color: #282c36;
+  color: #fff;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.count {
+  font-size: 48px;
+  text-align: center;
+  user-select: none;
+  -webkit-user-select: none; /* Safari対応 */
+}
+
+.like {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  width: 56px;
+}
+
+.like svg{
+  width: 100%;
+  height: auto;
+  cursor: pointer;
+}
+
+.like svg path {
+  fill: rgb(238, 238, 238);
+}
+.like.isLiked path{
+  fill: rgb(255, 87, 87);
+}
