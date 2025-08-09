@@ -31,6 +31,58 @@
 
 JavaScriptと同じ文法で書けるサーバーサイドプログラミング言語
 
+## いいね取得（サーバーサイド・Node.js）
+
+- 名前：`likes-get`
+- ランタイム：Node.js 22.x
+- アーキテクチャ：x86_64
+
+```js
+import { DynamoDBClient, ScanCommand } from "@aws-sdk/client-dynamodb";
+
+const client = new DynamoDBClient();
+
+export const handler = async () => {
+  const input = {
+    TableName: "likes"
+  };
+
+  try {
+    const command = new ScanCommand(input);
+    const response = await client.send(command);
+    console.log(response);
+
+    const items = response.Items.map(item => ({
+      id: item.id.S,
+      createdAt: Number(item.createdAt.N),
+      createdAtJST: item.createdAtJST.S,
+      user: item.user.S
+    }));
+
+    return {
+      statusCode: 200,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET",
+      },
+      body: JSON.stringify(items)
+    };
+
+  } catch (error) {
+    return {
+      statusCode: 500,
+      headers: {
+        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Methods": "GET",
+      },
+      body: JSON.stringify({
+        message: error.message
+      })
+    };
+  }
+};
+```
+
 ## いいね送信（サーバーサイド・Node.js）
 
 - 名前：`likes-post`
@@ -104,58 +156,6 @@ export const handler = async (event) => {
     }
   }
 }
-```
-
-## いいね取得（サーバーサイド・Node.js）
-
-- 名前：`likes-get`
-- ランタイム：Node.js 22.x
-- アーキテクチャ：x86_64
-
-```js
-import { DynamoDBClient, ScanCommand } from "@aws-sdk/client-dynamodb";
-
-const client = new DynamoDBClient();
-
-export const handler = async () => {
-  const input = {
-    TableName: "likes"
-  };
-
-  try {
-    const command = new ScanCommand(input);
-    const response = await client.send(command);
-    console.log(response);
-
-    const items = response.Items.map(item => ({
-      id: item.id.S,
-      createdAt: Number(item.createdAt.N),
-      createdAtJST: item.createdAtJST.S,
-      user: item.user.S
-    }));
-
-    return {
-      statusCode: 200,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET",
-      },
-      body: JSON.stringify(items)
-    };
-
-  } catch (error) {
-    return {
-      statusCode: 500,
-      headers: {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET",
-      },
-      body: JSON.stringify({
-        message: error.message
-      })
-    };
-  }
-};
 ```
 
 # API作成
