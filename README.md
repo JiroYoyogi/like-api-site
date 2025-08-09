@@ -16,11 +16,13 @@
 - テーブル名：`likes`
 - パーティションキー：`id`
 
-# Node.jsとは？
+# Lambda作成
+
+## Node.jsとは？
 
 JavaScriptと同じ文法で書けるサーバーサイドプログラミング言語
 
-# いいね送信（サーバーサイド・Node.js）
+## いいね送信（サーバーサイド・Node.js）
 
 - 名前：`likes-post`
 - ランタイム：Node.js 22.x
