@@ -194,6 +194,8 @@ export const handler = async (event) => {
   - 「*」と入力して追加
 - Access-Control-Allow-Methods
   - 「*」を選択
+- Access-Control-Allow-Headers
+  - content-type
 
 # いいね取得・保存（クライアント）
 
@@ -210,8 +212,9 @@ export const handler = async (event) => {
       user: "YOUR.NAME",
     }),
   })
-  .then((res) => {
-    console.log(res);
+  .then((res) => res.json())
+  .then((responseBody) => {
+    console.log(responseBody);
   })
   .catch((err) => {
     console.log(err);
