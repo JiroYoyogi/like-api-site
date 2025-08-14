@@ -7,7 +7,9 @@ const like = document.getElementById('js-like');
 fetch(apiUrl, { method: "GET" })
 .then((res) => res.json())
 .then((responseBody) => {
-  count.innerText = responseBody.length;
+  console.log(responseBody);
+  const likes = responseBody;
+  count.innerText = likes.length;
   if (responseBody.length) {
     like.classList.add('isLiked');
   }
